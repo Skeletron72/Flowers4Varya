@@ -64,32 +64,94 @@ body {
 
 .landing-content {
   position: absolute;
-  top: 15%;
+  top: 25%;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
   z-index: 1000;
   color: #fff;
-  width: 100%;
+  width: 90%;
+  max-width: 80vmin;
   pointer-events: none;
   opacity: 0;
-  animation: fade-in-text 2s 4s forwards;
+  animation: fade-in-text 2s 4.5s forwards;
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 6vmin;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8),
+                inset 0 0 32px rgba(255, 100, 0, 0.05);
+  }
 
   .title {
     font-family: 'Great Vibes', cursive;
-    font-size: 8vmin;
+    font-size: 10vmin;
     margin-bottom: 2vmin;
-    text-shadow: 0 0 2vmin rgba(255, 100, 0, 0.8);
+    color: #ffd11a;
+    text-shadow: 0 0 3vmin rgba(255, 100, 0, 0.6);
   }
 
   .subtitle {
     font-family: 'Montserrat', sans-serif;
-    font-size: 2.5vmin;
+    font-size: 2vmin;
     font-weight: 300;
-    letter-spacing: 0.5vmin;
+    letter-spacing: 0.8vmin;
     text-transform: uppercase;
-    opacity: 0.8;
+    opacity: 0.9;
+    color: #fff;
   }
+}
+
+.stars-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 110%;
+  height: 110%;
+  pointer-events: none;
+  z-index: 1;
+  
+  &--1 {
+    background-image: radial-gradient(1px 1px at 20px 30px, #eee, rgba(0,0,0,0)),
+                      radial-gradient(1px 1px at 40px 70px, #fff, rgba(0,0,0,0)),
+                      radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0)),
+                      radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)),
+                      radial-gradient(1px 1px at 130px 80px, #fff, rgba(0,0,0,0)),
+                      radial-gradient(2px 2px at 160px 120px, #ddd, rgba(0,0,0,0));
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    opacity: 0.3;
+  }
+  
+  &--2 {
+    background-image: radial-gradient(1px 1px at 10px 10px, #fff, rgba(0,0,0,0)),
+                      radial-gradient(1px 1px at 150px 150px, #eee, rgba(0,0,0,0)),
+                      radial-gradient(1px 1px at 200px 50px, #fff, rgba(0,0,0,0));
+    background-repeat: repeat;
+    background-size: 300px 300px;
+    opacity: 0.5;
+  }
+}
+
+.sparkle {
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  background: #ffcc00;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  box-shadow: 0 0 10px #ff944d, 0 0 20px #ff4500;
+  animation: sparkle-anim 0.8s ease-out forwards;
+}
+
+@keyframes sparkle-anim {
+  0% { transform: scale(0); opacity: 1; }
+  100% { transform: scale(2) translateY(-20px); opacity: 0; }
 }
 
 @keyframes fade-in-text {
@@ -1138,7 +1200,12 @@ body {
       -webkit-mask-image: linear-gradient(
         to top,
         transparent 40%,
-        #079097 80%
+        #ff4500 80%
+      ) !important;
+      mask-image: linear-gradient(
+        to top,
+        transparent 40%,
+        #ff4500 80%
       ) !important;
 
       &--1 {
@@ -1159,6 +1226,11 @@ body {
 
     .leaf {
       -webkit-mask-image: linear-gradient(
+        to top,
+        transparent 50%,
+        #079097 80%
+      ) !important;
+      mask-image: linear-gradient(
         to top,
         transparent 50%,
         #079097 80%
