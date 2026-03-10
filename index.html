@@ -12,10 +12,24 @@
 <body class="not-loaded">
     <div class="landing-content">
       <div class="glass-card">
-        <h1 class="title">Букет для Варечки</h1>
-        <p class="subtitle">Самые прекрасные цветы для самой чудесной девушки</p>
+        <div class="liquid-bg">
+          <div class="blob"></div>
+          <div class="blob"></div>
+          <div class="blob"></div>
+        </div>
+        <div class="glass-content">
+          <h1 class="title">Букет для Варечки</h1>
+          <p class="subtitle">Самые прекрасные цветы для самой чудесной девушки</p>
+        </div>
       </div>
     </div>
+    
+    <svg style="display: none;">
+      <filter id="liquid">
+        <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="3" result="noise" />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="20" />
+      </filter>
+    </svg>
     <div class="stars-layer stars-layer--1"></div>
     <div class="stars-layer stars-layer--2"></div>
     <div class="night"></div>

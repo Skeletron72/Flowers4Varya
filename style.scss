@@ -77,33 +77,116 @@ body {
   animation: fade-in-text 2s 4.5s forwards;
 
   .glass-card {
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 24px;
-    padding: 6vmin;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8),
-                inset 0 0 32px rgba(255, 100, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(50px) saturate(200%) brightness(1.1);
+    -webkit-backdrop-filter: blur(50px) saturate(200%) brightness(1.1);
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    border-radius: 48px;
+    padding: 8vmin;
+    box-shadow: 
+      0 30px 60px rgba(0, 0, 0, 0.6),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.2),
+      inset 0 20px 40px rgba(255, 255, 255, 0.1);
+    
+    // Noise/Grain Overlay
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 5;
+      background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(
+        135deg, 
+        rgba(255, 255, 255, 0.15) 0%, 
+        transparent 50%, 
+        rgba(255, 255, 255, 0.05) 100%
+      );
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .liquid-bg {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 0;
+      filter: blur(60px); // Deep blur for the blobs themselves
+      opacity: 0.8;
+      mix-blend-mode: hard-light;
+      
+      .blob {
+        position: absolute;
+        width: 140%;
+        height: 140%;
+        background: radial-gradient(circle at center, #ff8c00 0%, transparent 70%);
+        border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+        animation: liquid-move 15s ease-in-out infinite alternate;
+        opacity: 0.6;
+        
+        &:nth-child(2) {
+          background: radial-gradient(circle at center, #ff2200 0%, transparent 70%);
+          animation-direction: reverse;
+          animation-duration: 18s;
+          left: -30%;
+          top: -30%;
+        }
+        
+        &:nth-child(3) {
+          background: radial-gradient(circle at center, #ffcc00 0%, transparent 70%);
+          animation-duration: 22s;
+          right: -30%;
+          bottom: -30%;
+          opacity: 0.4;
+        }
+      }
+    }
+
+    .glass-content {
+      position: relative;
+      z-index: 10;
+    }
   }
 
   .title {
     font-family: 'Great Vibes', cursive;
-    font-size: 10vmin;
+    font-size: 11vmin;
     margin-bottom: 2vmin;
-    color: #ffd11a;
-    text-shadow: 0 0 3vmin rgba(255, 100, 0, 0.6);
+    color: #fff;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+    letter-spacing: 0.1vmin;
+    animation: title-glow 3s ease-in-out infinite alternate;
   }
 
   .subtitle {
     font-family: 'Montserrat', sans-serif;
-    font-size: 2vmin;
-    font-weight: 300;
-    letter-spacing: 0.8vmin;
+    font-size: 1.8vmin;
+    font-weight: 400;
+    letter-spacing: 1.2vmin;
     text-transform: uppercase;
-    opacity: 0.9;
+    opacity: 0.8;
     color: #fff;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
   }
+}
+
+@keyframes title-glow {
+  from { text-shadow: 0 0 20px rgba(255, 255, 255, 0.2); }
+  to { text-shadow: 0 0 40px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 100, 0, 0.3); }
+}
+
+@keyframes liquid-move {
+  0% { transform: translate(-10%, -10%) scale(1) rotate(0deg); }
+  50% { transform: translate(10%, 5%) scale(1.1) rotate(90deg); }
+  100% { transform: translate(-5%, 15%) scale(0.9) rotate(180deg); }
 }
 
 .stars-layer {
